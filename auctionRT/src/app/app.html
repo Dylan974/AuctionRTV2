@@ -1,0 +1,33 @@
+<ion-menu [content]="nav">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>Menu</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ion-list>
+      <button *ngIf="isAuthenticated" ion-item (click)="onLoad(homePage)">
+        <ion-icon name="log-in" item-left></ion-icon>
+        Home
+      </button>
+      <button *ngIf="isAuthenticated" ion-item (click)="onLoad(productsPage)">
+        <ion-icon name="cube" item-left></ion-icon>
+        Produits
+      </button>
+      <button *ngIf="isAuthenticated" ion-item (click)="onLoad(encheresPage)">
+        <ion-icon name="cube" item-left></ion-icon>
+        Enchères
+      </button>
+      <button *ngIf="!isAuthenticated" ion-item (click)="onLoad(signinPage)">
+        <ion-icon name="log-in" item-left></ion-icon>
+        Connexion
+      </button>
+      <button *ngIf="!isAuthenticated" ion-item (click)="onLoad(signupPage)">
+        <ion-icon name="log-in" item-left></ion-icon>
+        Inscription
+      </button>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+
+<ion-nav [root]="signinPage" #nav></ion-nav>

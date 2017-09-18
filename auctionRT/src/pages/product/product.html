@@ -1,0 +1,30 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Ajouter un produit</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+    <ion-list>
+      <ion-item>
+        <ion-label floating>Nom</ion-label>
+        <ion-input type="text" formControlName="name"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Descrition</ion-label>
+        <ion-textarea formControlName="description"></ion-textarea>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Catégorie</ion-label>
+        <ion-select formControlName="category">
+          <ion-option *ngFor="let categorie of categories" [value]="categorie.id">{{ categorie.name }}</ion-option>
+        </ion-select>
+      </ion-item>
+    </ion-list>
+    <button type="submit" ion-button block [disabled]="!productForm.valid">Ajouter produit</button>
+    </form>
+</ion-content>

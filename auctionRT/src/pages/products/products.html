@@ -1,0 +1,48 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-buttons left>
+      <button ion-button menuToggle>
+        <ion-icon name="menu">
+        </ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>Produits</ion-title>
+    <ion-buttons right>
+      <button ion-button icon-only [navPush]="productPage">
+        <ion-icon name="add"></ion-icon>
+      </button>
+      <button ion-button (click)="onLogout()">
+        <ion-icon name="log-out">
+        </ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <ion-list>
+    <ion-item-sliding *ngFor="let product of products; let i = index">
+      <ion-item text-center (click)="onViewDetail(product)">
+        <h2>{{ product.name }}</h2>
+        <p>{{ product.description }}</p>
+      </ion-item>
+      <ion-item-options side="left">
+        <button ion-button color="danger" (click)="onRemoveProduct(i)">
+          <ion-icon name="trash"></ion-icon>
+          Supprimer
+        </button>
+      </ion-item-options>
+      <ion-item-options side="right">
+        <button ion-button (click)="onPutAuction(product)">
+          <ion-icon name="arrow-dropright-circle"></ion-icon>
+          Mettre en enchère
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+
+</ion-content>

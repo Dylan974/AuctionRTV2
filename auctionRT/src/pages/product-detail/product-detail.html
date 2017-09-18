@@ -1,0 +1,24 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>productDetail</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <ion-card>
+    <img src="img/ps4.jpg"/>
+    <ion-card-content>
+      <ion-card-title text-center>
+        {{ product.name | uppercase}}
+      </ion-card-title>
+      <h2 text-center>Catégorie : {{categorie}}</h2>
+      <hr/>
+      <p text-center>{{ product.description }}</p>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>
