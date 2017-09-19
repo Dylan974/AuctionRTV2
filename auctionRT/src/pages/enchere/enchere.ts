@@ -16,7 +16,7 @@ import { EncheresPage } from '../encheres/encheres';
 export class EncherePage implements OnInit {
   enchere: Enchere;
   product: Product;
-  statusList: string[] = ["À venir", "En cours", "En cours d'achat", "Vendu"];
+  statusList: string[] = ["À venir", "En cours", "En cours de paiement", "Vendu"];
 
   enchereForm: FormGroup;
 

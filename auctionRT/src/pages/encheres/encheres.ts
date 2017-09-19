@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { LoadingController, AlertController } from 'ionic-angular';
 
 import { Enchere } from '../../models/enchere';
@@ -9,7 +9,7 @@ import { AuthService } from "../../services/auth";
   selector: 'page-encheres',
   templateUrl: 'encheres.html',
 })
-export class EncheresPage implements OnInit {
+export class EncheresPage {
 
   encheres: Enchere[] = [];
 
@@ -21,7 +21,7 @@ export class EncheresPage implements OnInit {
 
   loadEncheres(){
     const loading = this.loadingCtrl.create({
-      content: 'chargement des produits...'
+      content: 'chargement des enchères...'
     });
     loading.present();
     this.authService.getActiveUser().getToken()
@@ -46,9 +46,8 @@ export class EncheresPage implements OnInit {
       );
   }
 
-  ngOnInit(){
+  ionViewDidLoad(){
     this.loadEncheres();
-    console.log(this.encheres);
   }
 
   private handleError(errorMessage: string) {

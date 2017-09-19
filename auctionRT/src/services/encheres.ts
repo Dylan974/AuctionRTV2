@@ -61,7 +61,6 @@ export class EncheresService{
   }
 
   fetchList(token: string){
-    const userId = this.authService.getActiveUser().uid;
     return this.http.get('https://auctionrt-b09cf.firebaseio.com/encheres.json?auth=' + token)
       .map((response: Response) => {
         return response.json();
