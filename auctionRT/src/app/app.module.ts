@@ -18,6 +18,7 @@ import { ProductDetailPage } from '../pages/product-detail/product-detail';
 import { AuthService } from "../services/auth";
 import { CategoriesService } from "../services/categories";
 import { ProductsService } from "../services/products";
+import { EncheresService } from "../services/encheres";
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import { ProductsService } from "../services/products";
     AuthService,
     CategoriesService,
     ProductsService,
+    EncheresService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

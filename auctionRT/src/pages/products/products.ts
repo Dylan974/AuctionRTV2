@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LoadingController, AlertController, NavController } from 'ionic-angular';
 
 import {ProductPage} from '../product/product';
+import {EncherePage} from '../enchere/enchere';
 import { ProductsService } from "../../services/products";
 import { Product} from "../../models/product";
 import { AuthService } from "../../services/auth";
@@ -79,8 +80,9 @@ export class ProductsPage implements OnInit{
     this.loadProducts();
   }
 
-  onPutAuction() {
-    console.log("TODO");
+  onPutAuction(product: Product) {
+    console.log(product);
+    this.navCtrl.push(EncherePage, product);
   }
 
   onLogout(){
