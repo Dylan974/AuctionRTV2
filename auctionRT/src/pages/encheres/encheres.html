@@ -33,6 +33,12 @@
           <ion-card-title text-center>
             {{ enchere.product.name }}
           </ion-card-title>
+          <ion-badge text-right color="secondary">
+            <p style="color:white;">
+              <ion-icon name="at" left></ion-icon>
+              {{enchere.product.categorie}}
+            </p>
+          </ion-badge>
           {{ enchere.product.description }}
         </ion-card-content>
         <ion-row no-padding>
@@ -56,6 +62,11 @@
             <button ion-button color="danger" clear text-right
               (click)="onChangeStatus(enchere, 'En cours de paiement')" *ngIf="enchere.status == 'En cours'">
               Acheter
+              <ion-icon name='cart'></ion-icon>
+            </button>
+            <button ion-button color="danger" clear text-right
+              (click)="updateEnchere(enchere)">
+              TestUpdate
               <ion-icon name='cart'></ion-icon>
             </button>
           </ion-col>

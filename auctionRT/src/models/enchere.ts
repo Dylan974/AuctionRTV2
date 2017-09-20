@@ -13,13 +13,15 @@ export class Enchere {
   public product: Product;
   public vendeur_id: string;
 
-  constructor(status: string, price: number, decrement: number, prix_min: number, product: Product, vendeur_id: string) {
+  constructor(status: string, price: number, decrement: number, prix_min: number, product: Product, vendeur_id: string, id?: string) {
     this.status = status;
     this.price = price;
     this.prix_init = price;
     this.prix_min = prix_min;
     this.decrement = decrement;
     this.product = product;
-    this.vendeur_id = vendeur_id;
+    this.vendeur_id = vendeur_id ;
+    this.id = id || null;
   }
+
 }

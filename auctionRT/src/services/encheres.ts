@@ -14,7 +14,6 @@ export class EncheresService{
 
   addEnchere(enchere: Enchere){
     this.encheres.push(enchere);
-    console.log(this.encheres);
   }
 
   addEncheres(encheres: Enchere[]){
@@ -30,11 +29,6 @@ export class EncheresService{
   }
 
   storeEncheres(data, token){
-    console.log(data);
-    // return this.http.put('https://auctionrt-b09cf.firebaseio.com/encheres.json?auth=' + token, data)
-    // .map((response: Response) => {
-    //   return response.json();
-    // });
     return firebase.database().ref('encheres/').push(data).then((response: Response) => {
       return response.json();
     })
@@ -45,10 +39,11 @@ export class EncheresService{
 
   storeEncheresInUser(data, token){
     const userId = this.authService.getActiveUser().uid;
-    console.log(data);
-    return this.http.put('https://auctionrt-b09cf.firebaseio.com/' + userId + '/encheres.json?auth=' + token, data)
-    .map((response: Response) => {
+    return firebase.database().ref('encheres/' + userId + '/encheres.json?auth=' + token).push(data).then((response: Response) => {
       return response.json();
+    })
+    .catch((error: Error) => {
+      return error.message;
     });
   }
 
@@ -68,27 +63,58 @@ export class EncheresService{
   }
 
   fetchList(token: string){
-  //   let encheres_child : Enchere[] = [];
-  //   return firebase.database().ref('encheres/').on("value", function(snapshot) {
-  //     console.log(snapshot.val());
-  //     return snapshot.val();
-  //   }, function (errorObject) {
-  //      return errorObject;
-  //   }
-  // );
+    return this.http.get('https://auctionrt-b09cf.firebaseio.com/encheres.json?auth=' + token)
+      .map((response: Response) => {
+        return response.json();
+      })
+      .do((encheres: Enchere[]) => {
+        console.log(encheres);
+        if (encheres) {
+          this.encheres = encheres;
+        } else {
+          this.encheres = [];
+        }
+      });
+  }
 
-      return this.http.get('https://auctionrt-b09cf.firebaseio.com/encheres.json?auth=' + token)
-        .map((response: Response) => {
-          return response.json();
-        })
-        .do((encheres: Enchere[]) => {
-          console.log(encheres);
-          if (encheres) {
-            this.encheres = encheres;
-          } else {
-            this.encheres = [];
-          }
-        });
+  updateEnchere(enchere, enchere_id, token){
+    return this.http.put('https://auctionrt-b09cf.firebaseio.com/encheres/'+enchere_id+'.json?auth=' + token, enchere)
+    .map((response: Response) => {
+      return response.json();
+    })
+    .do((result: any) => {
+      console.log(result);
+      if (result) {
+        console.log("result");
+      } else {
+        console.log("pas result");
+      }
+    });
+  }
+
+  changeStatus(enchere: Enchere, status: string, token:any){
+    return this.http.get('https://auctionrt-b09cf.firebaseio.com/encheres/'+enchere.id+'.json?auth=' + token)
+      .map((response: Response) => {
+        return response.json();
+      })
+      .do((enchere_req: any) => {
+        console.log(enchere_req);
+        if (enchere_req) {
+          enchere_req.status = status;
+          enchere_req.id = enchere.id;
+          this.updateEnchere(enchere_req, enchere.id, token)
+          .subscribe(
+            () => {
+              console.log('success put');
+            },
+            error => {
+              console.log(error);
+            }
+          );
+        } else {
+
+        }
+      });
   }
 
 
