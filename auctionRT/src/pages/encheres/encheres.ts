@@ -20,7 +20,7 @@ export class EncheresPage {
   }
 
   updateEnchere(enchere: Enchere){
-    // UPDATE ENCHERE WITH FIND (ID ETC)
+    // UPDATE ENCHERE WITH FIND (ID ETC) VOIR ANCIEN TUTO
     let rep = this.encheres.filter((enchereEl: Enchere) => {
       return enchere.id == enchereEl.id;
     });
