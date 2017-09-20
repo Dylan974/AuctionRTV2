@@ -20,11 +20,10 @@ export class EncheresPage {
   }
 
   updateEnchere(enchere: Enchere){
-    // UPDATE ENCHERE WITH FIND (ID ETC) VOIR ANCIEN TUTO
-    let rep = this.encheres.filter((enchereEl: Enchere) => {
+    const position = this.encheres.findIndex((enchereEl: Enchere) => {
       return enchere.id == enchereEl.id;
     });
-    console.log(rep);
+    this.encheres[position] = enchere;
   }
 
   loadEncheres(){
@@ -71,9 +70,32 @@ export class EncheresPage {
   }
 
   onChangeStatus(enchere: Enchere, status: string){
-    console.log("change : "+status);
-    console.log(status == "En cours de paiement");
     if(status == "En cours de paiement"){
+      const load = this.loadingCtrl.create({
+        content: 'Chargement...'
+      });
+      load.present();
+      this.authService.getActiveUser().getToken()
+      .then(
+        (token: string) => {
+          this.encheresService.changeStatus(enchere, status, token)
+          .subscribe(
+            (enchere_rep: any) => {
+              load.dismiss();
+              if (enchere_rep) {
+                this.updateEnchere(enchere_rep);
+              }
+            },
+            error => {
+              load.dismiss();
+              this.handleError(error.json().error);
+            }
+          );
+        }
+      );
+      const loading = this.loadingCtrl.create({
+        content: 'Validation de l\'achat...'
+      });
       const alert = this.alertCtrl.create({
         title: 'Accepter Paiement ?',
         message: "Cette action débitera votre compte !",
@@ -85,21 +107,20 @@ export class EncheresPage {
           {
             text:"Continuer",
             handler: data => {
+              loading.present();
               this.authService.getActiveUser().getToken()
               .then(
                 (token: string) => {
-                  this.encheresService.changeStatus(enchere, status, token)
+                  this.encheresService.changeStatus(enchere, "Vendu", token)
                   .subscribe(
                     (enchere_rep: any) => {
-                      console.log(enchere_rep)
+                      loading.dismiss();
                       if (enchere_rep) {
-                        console.log("success");
                         this.updateEnchere(enchere_rep);
-                      } else {
-                        console.log("pas success");
                       }
                     },
                     error => {
+                      loading.dismiss();
                       this.handleError(error.json().error);
                     }
                   );

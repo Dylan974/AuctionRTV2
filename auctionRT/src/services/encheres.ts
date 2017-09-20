@@ -68,7 +68,6 @@ export class EncheresService{
         return response.json();
       })
       .do((encheres: Enchere[]) => {
-        console.log(encheres);
         if (encheres) {
           this.encheres = encheres;
         } else {
@@ -83,7 +82,6 @@ export class EncheresService{
       return response.json();
     })
     .do((result: any) => {
-      console.log(result);
       if (result) {
         console.log("result");
       } else {
@@ -98,7 +96,6 @@ export class EncheresService{
         return response.json();
       })
       .do((enchere_req: any) => {
-        console.log(enchere_req);
         if (enchere_req) {
           enchere_req.status = status;
           enchere_req.id = enchere.id;

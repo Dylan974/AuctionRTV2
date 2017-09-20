@@ -27,7 +27,7 @@
   <ion-list>
     <ion-item *ngFor="let enchere of encheres">
       <ion-card>
-        <!-- <img style="position:absolute; width:86%;" *ngIf="enchere.status == 'BUYING'" src="img/bandeau.png"/>
+        <!-- <img style="position:absolute; width:86%;" *ngIf="enchere.status == 'Vendu'" src="img/bandeau.png"/>
         <img src="img/iphonex.jpg"/> -->
         <ion-card-content>
           <ion-card-title text-center>
@@ -46,7 +46,10 @@
             <ion-badge color="danger">
               <p style="color:white;">
                 {{enchere.status}}
-                <ion-icon name="timer" right></ion-icon>
+                <ion-icon *ngIf="enchere.status == 'À venir'" name="alarm" right></ion-icon>
+                <ion-icon *ngIf="enchere.status == 'En cours'" name="timer" right></ion-icon>
+                <ion-icon *ngIf="enchere.status == 'En cours de paiement'" name="hand" right></ion-icon>
+                <!-- <ion-icon *ngIf="enchere.status == 'Vendu'" name="done-all" right></ion-icon> -->
               </p>
             </ion-badge>
           </ion-col>
@@ -62,11 +65,6 @@
             <button ion-button color="danger" clear text-right
               (click)="onChangeStatus(enchere, 'En cours de paiement')" *ngIf="enchere.status == 'En cours'">
               Acheter
-              <ion-icon name='cart'></ion-icon>
-            </button>
-            <button ion-button color="danger" clear text-right
-              (click)="updateEnchere(enchere)">
-              TestUpdate
               <ion-icon name='cart'></ion-icon>
             </button>
           </ion-col>
