@@ -38,24 +38,22 @@ export class EncherePage implements OnInit {
       content: 'Mise en enchère du produit...'
     });
     const userId = this.authService.getActiveUser().uid;
-    this.enchere = new Enchere(this.enchereForm.value.status, this.enchereForm.value.price, this.enchereForm.value.decrement, this.enchereForm.value.price, this.product, userId);
+    this.enchere = new Enchere(this.enchereForm.value.status, this.enchereForm.value.price, this.enchereForm.value.decrement, this.enchereForm.value.min_price, this.product, userId);
     console.log(this.enchere);
     this.encheresServices.addEnchere(this.enchere);
     loading.present();
     this.authService.getActiveUser().getToken()
     .then(
       (token: string) => {
-        this.encheresServices.storeEncheres(this.encheresServices.getEncheres(), token)
-        .subscribe(
+        this.encheresServices.storeEncheres(this.enchere, token).then(
           () => {
             console.log('success');
-          },
-          error => {
+          })
+          .catch((error: Error) => {
             loading.dismiss();
-            this.handleError(error.json().error);
+            this.handleError(error.message);
             console.log(error);
-          }
-        );
+          });
         this.encheresServices.storeEncheresInUser(this.encheresServices.getEncheres(), token)
         .subscribe(
           () => {

@@ -1,8 +1,7 @@
 import { Product } from './product';
 
 export class Enchere {
-  public static i: number = 1;
-  public id: number;
+  public id: string;
   // public date_annonce: string;
   // public date_compte_a_rebours: string;
   // public date_demarage: string;
@@ -15,7 +14,6 @@ export class Enchere {
   public vendeur_id: string;
 
   constructor(status: string, price: number, decrement: number, prix_min: number, product: Product, vendeur_id: string) {
-    this.id = Enchere.i;
     this.status = status;
     this.price = price;
     this.prix_init = price;
@@ -23,6 +21,5 @@ export class Enchere {
     this.decrement = decrement;
     this.product = product;
     this.vendeur_id = vendeur_id;
-    Enchere.i++;
   }
 }

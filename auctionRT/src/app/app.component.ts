@@ -26,7 +26,8 @@ export class MyApp {
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private menuCtrl: MenuController) {
     firebase.initializeApp({
       apiKey: "AIzaSyCoumjWKmB6cRymeFLMYS3LIm03BkP3j2U",
-      authDomain: "auctionrt-b09cf.firebaseapp.com"
+      authDomain: "auctionrt-b09cf.firebaseapp.com",
+      databaseURL: "https://auctionrt-b09cf.firebaseio.com"
     });
     firebase.auth().onAuthStateChanged(user => {
       console.log(user);

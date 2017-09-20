@@ -32,7 +32,10 @@ export class EncheresPage {
               (list: Enchere[]) => {
                 loading.dismiss();
                 if (list) {
-                  this.encheres = list;
+                  for(let i = 0; i < Object.keys(list).length; i++){
+                    this.encheres.push(list[Object.keys(list)[i]]);
+                  }
+                  // this.encheres = list;
                 } else {
                   this.encheres = [];
                 }
@@ -48,6 +51,10 @@ export class EncheresPage {
 
   ionViewDidLoad(){
     this.loadEncheres();
+  }
+
+  onChangeStatus(enchere: Enchere, status: string){
+
   }
 
   private handleError(errorMessage: string) {
